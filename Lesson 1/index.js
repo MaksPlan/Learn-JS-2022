@@ -22,3 +22,7 @@ let userLastName = "Mikhailenko";
 console.log(userLastName);
 let userSecondName = "Mikhailovich";
 console.log(userSecondName);
+
+//node './Lesson 1/index.js' для запуска Node.js 
+// second commit
+
