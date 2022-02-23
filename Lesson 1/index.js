@@ -1,10 +1,10 @@
-console.log('Hello, Javascript');
+console.log("Hello, Javascript");
 
 //1 название планеты
-const ourPlanet = 'Earth';
+const ourPlanet = "Earth";
 console.log(ourPlanet);
 //2 текущее время юзера
-let userTimeCount = "13:01";//current
+let userTimeCount = "13:01"; //current
 console.log(userTimeCount);
 //3 количество статей
 let articleCount = 5;
@@ -13,9 +13,9 @@ console.log(articleCount);
 let isCash = true;
 console.log(isCash);
 //5 ФИО
-let userName = "Alex"; 
+let userName = "Alex";
 console.log(userName);
-//или 
+//или
 let userNameData = "Aleksey";
 console.log(userNameData);
 let userLastName = "Mikhailenko";
@@ -23,7 +23,6 @@ console.log(userLastName);
 let userSecondName = "Mikhailovich";
 console.log(userSecondName);
 
-//node './Lesson 1/index.js' для запуска Node.js 
+//node './Lesson 1/index.js' для запуска Node.js
 // second commit
 //therd commit
-
