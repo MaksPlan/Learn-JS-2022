@@ -1,0 +1,1 @@
+//NaN это Number 
