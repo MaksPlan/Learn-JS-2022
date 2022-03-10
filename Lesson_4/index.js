@@ -232,16 +232,44 @@ for (let i = 11; i <= 33; i++) {
 
 //3 задача
 let i = 1;
-let result = 0;
 while (i <= 100) {
-    result = (i % 2);
-   if (result === 0) {
-    result = (i / 2);
-    console.log(result);
+if ((i % 2) === 0) {
+    console.log(i);
 };
     i++;
 };
 
-for (let i = 11; i <= 33; i++) {
-    console.log(i);
+for (let i = 1; i <= 100; i++) {
+    if ((i % 2) === 0) {
+        console.log(i);
+    };  
 };
+
+//4 Задача
+let i = 1;
+let sum = 0;
+while (i <= 100) {
+sum += i;
+i++;
+};
+console.log(sum);
+
+let sumNew = 0;
+for (let i = 1; i <= 100; i++) {
+    sumNew += i;
+}
+console.log(sumNew);
+
+//Работа с массивами 
+
+let numArray = [1, 2, 3, 4, 5];
+for (let i = 0; i < numArray.length; i++) {
+    console.log(numArray[i])
+};
+
+let numArrayNew = [1, 2, 3, 4, 5];
+let sumArrayNew = 0;
+for (let i = 0; i < numArrayNew.length; i++) {
+    sumArrayNew += numArrayNew[i]
+};
+console.log(sumArrayNew);
