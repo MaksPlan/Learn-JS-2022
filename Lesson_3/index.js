@@ -33,3 +33,9 @@ const filteredArray = myArray.filter((value) => value % 2 === 1)
 console.log(newArray);
 // console.log(typeof(myArray[0]))
 // console.log(typeof('1'));
+
+
+
+if (справа своюодго) {
+    иди вправо
+} else if (c)
