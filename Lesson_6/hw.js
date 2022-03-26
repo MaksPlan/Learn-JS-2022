@@ -83,9 +83,52 @@
 
 //10
 
+
+//11
 // function initCap(str) {
 //     let newStr =  str.split(' ').map((w) => w.replace(w[0], w[0].toUpperCase())).join('');
 //     return newStr.replace(newStr[0], newStr[0].toLowerCase());
 // };
 // console.log(initCap('прыг скок'));
+
+//12
+// function initSnake(str) {
+//     str.split('').map((char) => {
+//         let result = if (char >= 'А' && char <= 'Я')  {char.toLowerCase()}
+//         return result
+//     })
+// }
+
+//13
+// function reapetStr(str, n) {
+//     for (let i = 0; i < n; i++) {
+//         console.log(str);
+//     }
+// };
+
+// reapetStr('hi', 5);
+
+//14
+// function path(pathname) {
+//     let keyword = pathname.split('/');
+//     return keyword[3]
+// };
+// console.log(path('fdgd/dfg/key'));
+
+//15
+
+
+// //16
+// function getSubstr(str, char, pos) {
+//     let index = str.indexOf(char);
+//     let result = '';
+//     if (pos === 'before') {
+//         result = str.substring(0, index);
+//     } else if (pos === 'after') {
+//       result = str.substring(index, str.length)
+//     } else {result = 'err'};
+// };
+// console.log(getSubstr('ghhhQdfg', 'Q', 'before'));
+
+
 
