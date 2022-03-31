@@ -44,19 +44,19 @@
 // console.log(capitalize('папа мама я дружная семья'));
 
 //6
-// function isUpperRegister(word) {
-//    let changeChar = word.split('').map(char => {
-//        return (char >= 'А' && char <= 'Я') ? char.toLowerCase() : char.toUpperCase();
-//     }).join('');
-//     return changeChar;
-// }
-// console.log(isUpperRegister('КаЖдЫй'));
+function isUpperRegister(word) {
+   let changeChar = word.split('').map(char => {
+       return (char >= 'А' && char <= 'Я') ? char.toLowerCase() : char.toUpperCase();
+    }).join('');
+    return changeChar;
+}
+console.log(isUpperRegister('КаЖдЫй'));
 
-// function changeRegister(str) {
-//     let changeCase = str.split(' ').map(w => isUpperRegister(w)).join(' ');
-//         return changeCase;
-// }
-// console.log(changeRegister('КаЖдЫй ОхОтНиК'));
+function changeRegister(str) {
+    let changeCase = str.split(' ').map(w => isUpperRegister(w)).join(' ');
+        return changeCase;
+}
+console.log(changeRegister('КаЖдЫй ОхОтНиК'));
 
 //7
 
@@ -74,7 +74,7 @@
 //      return strTwo.match(RegExp(`${strOne}`));
 //  };
 
-//  console.log(comparison('gggh', 'hguggggh'));
+//  console.log(comparison('gggh', 'ggh'));
 
 // function comparison(strOne, strTwo) {
 //     return strOne.toLowerCase === strTwo.toLowerCase ? true : false;
