@@ -19,10 +19,10 @@
 // let result = numbersArray.filter((a, b) => {if ((a + b) === 7) {return '(a, b)'}});
 // console.log(result);  //- выдает пустой массив;
 
-// //4
-// const myString = 'lorem ipsum dolor sit amet';
-// const result = myString.split(' ').map((w) => w[0]);
-// console.log(result);
+//4
+const myString = 'lorem ipsum dolor sit amet';
+const result = myString.split(' ').map((w) => w[0]);
+console.log(result);
 
 // //6
 // const myNumbersArray = [3, 3, 5, 6, 2, 6, 9];
