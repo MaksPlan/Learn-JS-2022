@@ -81,6 +81,7 @@ heroMaxHealt.append(healthHero);
 
 let openToAttack = true; //на героя возможно напасть
 //Ходы Евстафия
+let heroPass = [];
 function action(index)  {
     let ul = document.querySelector('ul');
     let move = document.createElement('li');
@@ -91,19 +92,20 @@ function action(index)  {
 const heroMoves = document.querySelectorAll('button');
 heroMoves.forEach((el, i) => el.addEventListener('click', () => {
     action(i);
-    heroAttack(i);
+   return heroAttack(i);
 }));
 
 function heroAttack(index) {
-    let phDmg = moves[im]['physicalDmg'];
-    let mgDmg = moves[im]['magicDmg'];
-    let phArmor = moves[im]['physicArmorPercents'];
-    let mgArmor = moves[im]['magicArmorPercents'];
+    let phDmg = moves[index]['physicalDmg'];
+    let mgDmg = moves[index]['magicDmg'];
+    let phArmor = moves[index]['physicArmorPercents'];
+    let mgArmor = moves[index]['magicArmorPercents'];
     let resultAttack = [phDmg, mgDmg]
     let resultArmor = [phArmor, mgArmor]
  
     openToAttack = false;
-    return [resultAttack, resultArmor];
+    heroPass = [resultAttack, resultArmor];
+    return heroPass;
     
 }
 // Здоровье Монстра
@@ -143,17 +145,21 @@ monster.attack = function monsterDmg(index) {
 
 do {
     let monsterPass = null;
-    let heroPass = null;
     if (openToAttack) {
       monsterPass = monster.attack(im);
-    };
-    heroPass = 
-    
+    }; 
+    resultDamage(heroPass, monsterPass);
 
-} while (healthMonster.innerHTML.toNumber() > 0 && healthMonster.Hero.innerHTML.toNumber() > 0) 
+} while (healthMonster.textContent.toNumber() > 0 && healthHero.textContent.toNumber() > 0) 
 
-function resultDamage() {
-
+function resultDamage(one, two) {
+    let resultphDamage = one[1][0] - two[0][0];
+    if ( resultphDamage <= 0 ) healthHero.textCont[0][0];
+    let resultmgDamage = one[1][1] - two[0][1];
+    if ( resultphDamage <= 0 ) healthMonster.textContent = +healthMonster.textContent - resultphDamage;
+    resultphDamage = two[1][1] - one[0][1];
+    if ( resultmgDamage <= 0 ) healthMonster.textContent = +healthMonster.textContent - resultmgDamage;
+    openToAttack = true;
 }
 
 
