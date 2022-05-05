@@ -73,19 +73,32 @@ const moves = [
 // 5 опить кулдаун как функцию и прикрутить CSS свойства
 
 
-
+function action(index)  {
+    let ul = document.querySelector('ul');
+    let move = document.createElement('li');
+    move.textContent = moves[index]['name'];
+    return ul.append(move);
+};
 
 //Здоровье Евстафия
-let heroMaxHealt = document.querySelector('.healthE');
-let healthHero = document.createElement('span')
-healthHero.textContent =  +prompt('Выберерти сложность', '')
-heroMaxHealt.append(healthHero);
+// let heroMaxHealt = document.querySelector('.healthE');
+// let healthHero = document.createElement('span')
+// healthHero.textContent =  +prompt('Выберерти сложность', '')
+// heroMaxHealt.append(healthHero);
 
 
 //Ходы Евстафия
 
+const heroMoves = document.querySelectorAll('button');
+heroMoves.forEach((el, i) => el.addEventListener('click', () => action(i)));
 
 
+
+// Здоровье Монстра
+let monsterMaxHealt = document.querySelector('.healthM');
+let healthMonster = document.createElement('span')
+healthMonster.textContent = monster.maxHealth;
+monsterMaxHealt.append(healthMonster);
 
 //Ходы  монстра
 function mosterMoveSet() {
@@ -94,29 +107,9 @@ function mosterMoveSet() {
     ul.append(monsterMove);
     }
     
-// function monsterAction() {
-//     if (cooldown > 0) 
-// }
-
-    // Блок с игрой
-
-// let ul = document.querySelector('ul');
-// let liis = document.querySelectorAll('li');
-
-// do { 
-//     if (!(liis % 2  === 0)) {
-//        monsterAction();
-//     } else {
-//         //Ход героя
-//     }
-// } while (monster.maxHealth > 0 && hero.maxHealth > 0) //Условия существования игры и очередность ходов
 
 
-function action(i)  {
-    
-    let move = document.createElement('li');
-    move.textContent = moves[i]['name'];
 
-   return ul.append(move);//универсальное действие для героя и монстра
-}
-     
+
+
+
