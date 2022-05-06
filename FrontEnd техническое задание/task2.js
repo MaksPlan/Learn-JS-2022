@@ -72,12 +72,19 @@ const moves = [
 // 4 опистаь функцию  взаимозачет урона по броне, и затем по здоровью
 // 5 опить кулдаун как функцию и прикрутить CSS свойства
 
+//Деструктуризация статов Лютого
+const {maxHealth: monsterHealth, name, moves: monsterMoveSet} = monster
+const [claw, fireBreath, tail] = monsterMoveSet
+
+
 
 //Здоровье Евстафия
 let heroMaxHealt = document.querySelector('.healthE');
 let healthHero = document.createElement('span')
 healthHero.textContent =  +prompt('Выберерти сложность', '')
 heroMaxHealt.append(healthHero);
+
+let EvstafHealth = healthHero.textContent; //Шкала здоровья Евстафия
 
 let openToAttack = true; //на героя возможно напасть
 //Ходы Евстафия
@@ -109,14 +116,16 @@ function heroAttack(index) {
     
 }
 // Здоровье Монстра
-let monsterMaxHealt = document.querySelector('.healthM');
+let monsterDiv = document.querySelector('.healthM');
 let healthMonster = document.createElement('span')
-healthMonster.textContent = monster.maxHealth;
-monsterMaxHealt.append(healthMonster);
+healthMonster.textContent = monsterHealth;
+monsterDiv.append(healthMonster);
+
+
 //Ходы  монстра
-function mosterMoveSet() {
+function mosterMovement() {
     let monsterMove = document.createElement('li');
-    monsterMove.textContent = monster.moves[0]['name'];
+    monsterMove.textContent = monsterMoveSet['name'];
     ul.append(monsterMove);
     };
 
@@ -126,22 +135,12 @@ function actionMonster(index)  {
         move.textContent = monster.moves[index]['name'];
         return ul.append(move);
 };
-const im = Math.floor(Math.random()*(3));
-
+const im = Math.floor(Math.random()*(3));//Выбор удара
 monster.attack = function monsterDmg(index) {
    actionMonster(index);
-   let phDmg = monster.moves[im]['physicalDmg'];
-   let mgDmg = monster.moves[im]['magicDmg'];
-   let phArmor = monster.moves[im]['physicArmorPercents'];
-   let mgArmor = monster.moves[im]['magicArmorPercents'];
-   let resultAttack = [phDmg, mgDmg]
-   let resultArmor = [phArmor, mgArmor]
-
-   openToAttack = false;
-   return [resultAttack, resultArmor];
+openToAttack = false;
 }
-
-//Общие Ходы 
+//ИИ монстра 
 
 do {
     let monsterPass = null;
@@ -150,17 +149,17 @@ do {
     }; 
     resultDamage(heroPass, monsterPass);
 
-} while (healthMonster.textContent.toNumber() > 0 && healthHero.textContent.toNumber() > 0) 
+} while (monsterMaxHealt > 0 && healthHero.textContent.toNumber() > 0) 
 
-function resultDamage(one, two) {
-    let resultphDamage = one[1][0] - two[0][0];
-    if ( resultphDamage <= 0 ) healthHero.textCont[0][0];
-    let resultmgDamage = one[1][1] - two[0][1];
-    if ( resultphDamage <= 0 ) healthMonster.textContent = +healthMonster.textContent - resultphDamage;
-    resultphDamage = two[1][1] - one[0][1];
-    if ( resultmgDamage <= 0 ) healthMonster.textContent = +healthMonster.textContent - resultmgDamage;
-    openToAttack = true;
-}
+
+
+
+
+
+
+
+
+
 
 
 
