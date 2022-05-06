@@ -66,54 +66,24 @@ const moves = [
     },
 ];
 
-// 1 графический интерфей
-// 2 поключение атак игрока к ГИ 
-// 3 подключение атак монстра, как реакция на действия игрока 
-// 4 опистаь функцию  взаимозачет урона по броне, и затем по здоровью
-// 5 опить кулдаун как функцию и прикрутить CSS свойства
-
 //Деструктуризация статов Лютого
 const {maxHealth: monsterHealth, name, moves: monsterMoveSet} = monster
 const [claw, fireBreath, tail] = monsterMoveSet
+function destructMoveSet(index) {
+    const {name,
+        physicalDmg: phDmg,
+        magicDmg: mgDmg,
+        physicArmorPercents: phArmor,
+        magicArmorPercents: mgArmor
+        } = moves[index]
 
-
-
-//Здоровье Евстафия
-let heroMaxHealt = document.querySelector('.healthE');
-let healthHero = document.createElement('span')
-healthHero.textContent =  +prompt('Выберерти сложность', '')
-heroMaxHealt.append(healthHero);
-
-let EvstafHealth = healthHero.textContent; //Шкала здоровья Евстафия
-
-let openToAttack = true; //на героя возможно напасть
-//Ходы Евстафия
-let heroPass = [];
-function action(index)  {
-    let ul = document.querySelector('ul');
-    let move = document.createElement('li');
-    move.textContent = moves[index]['name'];
-    return ul.append(move);
+       let stats = [phDmg, mgDmg, phArmor, mgArmor]
+        return stats;
 }
- 
-const heroMoves = document.querySelectorAll('button');
-heroMoves.forEach((el, i) => el.addEventListener('click', () => {
-    action(i);
-   return heroAttack(i);
-}));
-
-function heroAttack(index) {
-    let phDmg = moves[index]['physicalDmg'];
-    let mgDmg = moves[index]['magicDmg'];
-    let phArmor = moves[index]['physicArmorPercents'];
-    let mgArmor = moves[index]['magicArmorPercents'];
-    let resultAttack = [phDmg, mgDmg]
-    let resultArmor = [phArmor, mgArmor]
- 
-    openToAttack = false;
-    heroPass = [resultAttack, resultArmor];
-    return heroPass;
-    
+function countDamage(damage, armor) {
+    let result = damage - armor;
+    result > 0 ? result : result = 0;
+    return result;
 }
 // Здоровье Монстра
 let monsterDiv = document.querySelector('.healthM');
@@ -121,35 +91,59 @@ let healthMonster = document.createElement('span')
 healthMonster.textContent = monsterHealth;
 monsterDiv.append(healthMonster);
 
+//Здоровье Евстафия
+let heroMaxHealt = document.querySelector('.healthE');
+let healthHero = document.createElement('span')
+healthHero.textContent =  +prompt('Выберерти сложность', '')
+let heroEvstf = healthHero.textContent;
+heroMaxHealt.append(healthHero);
 
-//Ходы  монстра
-function mosterMovement() {
-    let monsterMove = document.createElement('li');
-    monsterMove.textContent = monsterMoveSet['name'];
-    ul.append(monsterMove);
-    };
+let openToAttack = true; //на героя возможно напасть
+//Ходы Евстафия
+function action(index)  {
+    let ul = document.querySelector('ul');
+    let move = document.createElement('li');
+    move.textContent = moves[index]['name'];
+    ul.append(move);
+   }
+const heroMoves = document.querySelectorAll('button');
+let heroStats = heroMoves.forEach((el, i) => el.addEventListener('click', () => {
+    action(i);
+    openToAttack = false;
+    let result = destructMoveSet(i);
+   return result;
+}))
+
+//Ходы монстра
 
 function actionMonster(index)  {
         let ul = document.querySelector('ul');
         let move = document.createElement('li');
         move.textContent = monster.moves[index]['name'];
-        return ul.append(move);
+        ul.append(move);
+        let monsterStats = destructMoveSet(index);
+        return monsterStats;
 };
-const im = Math.floor(Math.random()*(3));//Выбор удара
-monster.attack = function monsterDmg(index) {
-   actionMonster(index);
-openToAttack = false;
-}
-//ИИ монстра 
+//ИИ игры // heroStep //
 
 do {
-    let monsterPass = null;
+    let im = Math.floor(Math.random()*(3));//Выбор удара
     if (openToAttack) {
-      monsterPass = monster.attack(im);
-    }; 
-    resultDamage(heroPass, monsterPass);
+   
 
-} while (monsterMaxHealt > 0 && healthHero.textContent.toNumber() > 0) 
+      let monsterStep = actionMonster(im);//retutn [monsterStats]
+      let phDamageForHero = countDamage(monsterStep[0], heroStats[2]);//damage armor
+      let phDamageForMonster = countDamage(heroStats[0], monsterStep[2]);
+      let mgDamageForHero = countDamage(monsterStep[1], heroStats[3]);
+      let mgDamageForMonster = countDamage(heroStats[1], monsterStep[3]);
+      monsterHealth = +monsterHealth - (phDamageForMonster + mgDamageForMonster) 
+     heroEvstf = +heroEvstf - (phDamageForHero + mgDamageForHero)
+     monsterDiv.append(monsterHealth);
+     heroMaxHealt.append(heroEvstf);
+    }; 
+   
+
+} while (+monsterDiv.textContent > 0 && +heroMaxHealt.textContent > 0) 
 
 
 
