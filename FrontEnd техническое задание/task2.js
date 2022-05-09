@@ -101,7 +101,7 @@ function activeHeroMovement(index) {
 let heroStats = [];
 for (let i = 0; i < heroMoves.length; i++) {
         heroMoves[i].addEventListener('click', () => {
-
+            console.log('heroCoolDownSet', heroCoolDownSet)
         activeHeroMovement(i)
         action(i);
         heroStats = destructMoveSet(i);
@@ -160,7 +160,7 @@ function chooseWinner() {
     span.style.fontSize = '40px';
     span.style.height = span.style.width = '40px'
     document.body.append(span);
-    // heroMoves.forEach((button) => button.setAttribute('disabled', 'disabled'));
+    heroMoves.forEach((button) => button.setAttribute('disabled', 'disabled'));
     
 } else if (heroEvstf <= 0) {
     let span = document.createElement('span');
