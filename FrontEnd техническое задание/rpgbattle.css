@@ -37,12 +37,10 @@ li {
    display: flex;
    justify-content: center;
 }
-/* 
-.moveOne {
+.start {
+    margin: 20px;
 }
-.moveTwo {
-}
-.moveThree {
-}
-.moveFour {
-} */
+
+.hide {
+    display: none;
+};
