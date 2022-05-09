@@ -67,7 +67,7 @@ const moves = [
 ];
 
 //Деструктуризация статов Лютого
-const {maxHealth: monsterHealth, name, moves: monsterMoveSet} = monster
+let {maxHealth: monsterHealth, name, moves: monsterMoveSet} = monster
 const [claw, fireBreath, tail] = monsterMoveSet
 function destructMoveSet(index) {
     const {name,
@@ -107,13 +107,21 @@ function action(index)  {
     ul.append(move);
    }
 const heroMoves = document.querySelectorAll('button');
-let heroStats = heroMoves.forEach((el, i) => el.addEventListener('click', () => {
-    action(i);
-    openToAttack = false;
-    let result = destructMoveSet(i);
-   return result;
-}))
+let heroStats = [];
+//     heroMoves.map((el, i) => el.addEventListener('click', () => {
+//     action(i);
+//     openToAttack = false;
+//     heroStats = destructMoveSet(i);
+//    return heroStats;
+// }))
 
+for (let i = 0; i < heroMoves.length; i++) {
+        heroMoves[i].addEventListener('click', () => {
+        handler();
+        action(i);
+        openToAttack = false;
+        heroStats = destructMoveSet(i)})
+}
 //Ходы монстра
 
 function actionMonster(index)  {
@@ -126,26 +134,43 @@ function actionMonster(index)  {
 };
 //ИИ игры // heroStep //
 
-do {
+function handler()  {
     let im = Math.floor(Math.random()*(3));//Выбор удара
-    if (openToAttack) {
-   
+    // if (openToAttack) {
+        
 
-      let monsterStep = actionMonster(im);//retutn [monsterStats]
+     let monsterStep = actionMonster(im);//retutn [monsterStats]
       let phDamageForHero = countDamage(monsterStep[0], heroStats[2]);//damage armor
       let phDamageForMonster = countDamage(heroStats[0], monsterStep[2]);
       let mgDamageForHero = countDamage(monsterStep[1], heroStats[3]);
       let mgDamageForMonster = countDamage(heroStats[1], monsterStep[3]);
-      monsterHealth = +monsterHealth - (phDamageForMonster + mgDamageForMonster) 
+      monsterHealth = monsterHealth - (phDamageForMonster + mgDamageForMonster) 
      heroEvstf = +heroEvstf - (phDamageForHero + mgDamageForHero)
-     monsterDiv.append(monsterHealth);
-     heroMaxHealt.append(heroEvstf);
+     monsterDiv.innerHTML = monsterHealth;
+     heroMaxHealt.innerHTML = heroEvstf;
+     chooseWinner();
     }; 
-   
+//    } 
 
-} while (+monsterDiv.textContent > 0 && +heroMaxHealt.textContent > 0) 
-
-
+function chooseWinner() {if (!(monsterHealth > 0)) {
+    let span = document.createElement('span');
+    span.textContent = 'Вы победили'
+    span.style.backgroundColor = 'green';
+    span.style.fontSize = '40px';
+    span.style.height = span.style.width = '80px'
+    document.body.append(span);
+} else if (!(heroEvstf > 0)) {
+    let span = document.createElement('span');
+    span.textContent = 'Вы проиграли';
+    span.style.backgroundColor = 'green';
+    span.style.fontSize = '40px';
+    span.style.height = span.style.width = '80px'
+    document.body.append(span);
+    document.body.append(span);
+}}
+//вытащить кнопку старт из коллекции действий героя и повесить на нее отдельный слушатель
+//сделать через промис и колбэк и таймер так, чтобы при нажатие на кнопку старт монстр бил сам и бил первым, потом игрок выберает удар
+//Кнопка Disable при определение победителя, остановка счетчика (здоровье может быть только неотрицательным)
 
 
 
