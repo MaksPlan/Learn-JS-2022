@@ -95,35 +95,44 @@ let startButton = document.querySelector('.start');
 
 //Ходы Евстафия
 let heroMoves = document.querySelectorAll('.moveHero');
-function activeHeroMovement(index) {
-  (heroCoolDownSet[index] === 0) ? heroMoves[index].classList.remove('hide') : heroMoves[index].classList.add('hide');
-}
+
+
 let heroStats = [];
 for (let i = 0; i < heroMoves.length; i++) {
-        heroMoves[i].addEventListener('click', () => {
-            console.log('heroCoolDownSet', heroCoolDownSet)
-        activeHeroMovement(i)
-        action(i);
-        heroStats = destructMoveSet(i);
-        console.log(heroStats);
-        heroCoolDownSet[i] = heroStats[4];
-       finalDamage();
-       coolDownCounter(heroStats);
-       
-    })
+    heroMoves[i].addEventListener('click', () => {coolDownCounter(heroCoolDownSet);
+        for (let x = 0; x < heroMoves.length; x++) {
+            if (heroCoolDownSet[x] === 0) heroMoves[x].removeAttribute('disabled') ;
+        }
+});
 }
+
+for (let i = 0; i < heroMoves.length; i++) {
+   
+        heroMoves[i].addEventListener('click', () => {
+         heroStats = destructMoveSet(i);
+        heroCoolDownSet[i] = heroStats[4];
+        if (!(heroCoolDownSet[i] === 0)) heroMoves[i].setAttribute('disabled', 'disabled');
+        console.log('heroCoolDownSet', heroCoolDownSet)
+        action(i);
+        console.log('heroStats' ,heroStats);
+       finalDamage(); 
+    });
+   
+};
+
+
 //Ходы монстра
 let monsterStats = [];
 function actionMonster(index)  {
 
         let monsterStats = destructMoveSet(index);
-        console.log(monsterStats);
         if (monsterCoolDownSet[index] === 0) {
             monsterCoolDownSet[index] = monsterStats[4];
             let ul = document.querySelector('ul');
             let move = document.createElement('li');
             move.textContent = monster.moves[index]['name'];
             ul.append(move);
+             
         } else {
             monsterStepChoise();
         }
@@ -148,7 +157,8 @@ function finalDamage() {
      monsterDiv.innerHTML = monsterHealth;
      heroMaxHealt.innerHTML = heroEvstf;
      chooseWinner();
-     coolDownCounter(monsterStats);
+     coolDownCounter(monsterCoolDownSet);
+     coolDownCounter(heroCoolDownSet);
   
 }
 
@@ -211,8 +221,14 @@ function action(index)  {
     ul.append(move);
    }
 function coolDownCounter(arr) {
-       arr.map((el) => el === 0 ? 0 : el--)
-};
+    let array = [];
+       arr.forEach((el) => {el === 0 ? el : el-- ;
+     array.push(el)});
+     arr = array;
+     console.log(arr)
+     return arr;
+ } 
+
 
 
 
