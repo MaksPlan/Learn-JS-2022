@@ -101,11 +101,11 @@ let heroStats = [];
 
 heroMoves.forEach((button, i) => button.addEventListener('click',() => {
     heroStats = destructMoveSet(i);
-    heroCoolDownSet[i] = heroStats[4];
+    heroCoolDownSet[i] = heroStats[4] + 1;
     if (!(heroCoolDownSet[i] === 0)) button.setAttribute('disabled', 'disabled');
    
     action(i);
-    console.log('heroStats', heroStats);
+  
    finalDamage(); 
 }))
 
@@ -117,7 +117,7 @@ heroMoves.forEach((button, i) => button.addEventListener('click',() => {
     heroCoolDownSet.forEach((el, i) => {
         if (el === 0) heroMoves[i].removeAttribute('disabled');
     });
-    console.log('heroCoolDownSet', heroCoolDownSet)
+  
  }))
 
 
