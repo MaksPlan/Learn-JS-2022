@@ -31,7 +31,7 @@ const monster = {
 };
 
 // Маг Евстафий
-const moves = [
+const moves =  [
     {
         "name": "Удар боевым кадилом",
         "physicalDmg": 2,
@@ -96,29 +96,30 @@ let startButton = document.querySelector('.start');
 //Ходы Евстафия
 let heroMoves = document.querySelectorAll('.moveHero');
 
-
+//coolDown Евстафия
 let heroStats = [];
-for (let i = 0; i < heroMoves.length; i++) {
-    heroMoves[i].addEventListener('click', () => {coolDownCounter(heroCoolDownSet);
-        for (let x = 0; x < heroMoves.length; x++) {
-            if (heroCoolDownSet[x] === 0) heroMoves[x].removeAttribute('disabled') ;
-        }
-});
-}
 
-for (let i = 0; i < heroMoves.length; i++) {
+heroMoves.forEach((button, i) => button.addEventListener('click',() => {
+    heroStats = destructMoveSet(i);
+    heroCoolDownSet[i] = heroStats[4];
+    if (!(heroCoolDownSet[i] === 0)) button.setAttribute('disabled', 'disabled');
    
-        heroMoves[i].addEventListener('click', () => {
-         heroStats = destructMoveSet(i);
-        heroCoolDownSet[i] = heroStats[4];
-        if (!(heroCoolDownSet[i] === 0)) heroMoves[i].setAttribute('disabled', 'disabled');
-        console.log('heroCoolDownSet', heroCoolDownSet)
-        action(i);
-        console.log('heroStats' ,heroStats);
-       finalDamage(); 
+    action(i);
+    console.log('heroStats', heroStats);
+   finalDamage(); 
+}))
+
+
+ heroMoves.forEach((button) => button.addEventListener('click', () => {
+    heroCoolDownSet = heroCoolDownSet.map((el) => {
+      return  el === 0 ? el : el - (el/el);
     });
-   
-};
+    heroCoolDownSet.forEach((el, i) => {
+        if (el === 0) heroMoves[i].removeAttribute('disabled');
+    });
+    console.log('heroCoolDownSet', heroCoolDownSet)
+ }))
+
 
 
 //Ходы монстра
@@ -169,8 +170,8 @@ function chooseWinner() {
     span.style.backgroundColor = 'green';
     span.style.fontSize = '40px';
     span.style.height = span.style.width = '40px'
-    document.body.append(span);
-    heroMoves.forEach((button) => button.setAttribute('disabled', 'disabled'));
+    startButton.after(span);
+    heroMoves.forEach((button) => button.classList.add('hide'));
     
 } else if (heroEvstf <= 0) {
     let span = document.createElement('span');
@@ -178,9 +179,8 @@ function chooseWinner() {
     span.style.backgroundColor = 'green';
     span.style.fontSize = '40px';
     span.style.height = span.style.width = '40px'
-    document.body.append(span);
-    document.body.append(span);
-    heroMoves.forEach((button) => button.setAttribute('disabled', 'disabled'));
+    startButton.after(span);
+    heroMoves.forEach((button) => button.classList.add('hide'));
 }
 else {
 
