@@ -103,10 +103,8 @@ heroMoves.forEach((button, i) => button.addEventListener('click',() => {
     heroStats = destructMoveSet(i);
     heroCoolDownSet[i] = heroStats[4] + 1;
     if (!(heroCoolDownSet[i] === 0)) button.setAttribute('disabled', 'disabled');
-   
-    action(i);
-  
-   finalDamage(); 
+    action(moves, heroStats, i, 'pink');
+    finalDamage(); 
 }))
 
 
@@ -129,20 +127,16 @@ function actionMonster(index)  {
         let monsterStats = destructMoveSet(index);
         if (monsterCoolDownSet[index] === 0) {
             monsterCoolDownSet[index] = monsterStats[4];
-            let ul = document.querySelector('ul');
-            let move = document.createElement('li');
-            move.textContent = monster.moves[index]['name'];
-            ul.append(move);
-             
+            action(monsterMoveSet, monsterStats, index, 'red')
         } else {
             monsterStepChoise();
         }
         return monsterStats;
 };
 
-let im = 0;
+
 function monsterStepChoise()  {
-    im = Math.floor(Math.random()*(3));//Выбор удара
+   let im = Math.floor(Math.random()*(3));//Выбор удара
      return actionMonster(im);//retutn [monsterStats]
   
    } 
@@ -208,16 +202,23 @@ function destructMoveSet(index) {
        let stats = [phDmg, mgDmg, phArmor, mgArmor, cooldown]
         return stats;
 }
-function countDamage(damage = 0, armor = 0) {
-    let result = damage - armor;
-    result > 0 ? result : result = 0;
+function countDamage(damage, armor) {
+  let  armoR = (damage * (armor / 100)) //считаю броню как процент от урона
+    console.log(armoR);
+    let result = damage - armoR;
+    // result > 0 ? result : result = 0;
     return result;
 }
 
-function action(index)  {
+function action(arr, stats, index, color)  {
     let ul = document.querySelector('ul');
     let move = document.createElement('li');
-    move.textContent = moves[index]['name'];
+    move.textContent = `${arr[index]['name']} 
+     физ. урон: ${stats[0]} 
+     маг. урон: ${stats[1]} 
+     физ. броня ${stats[2]}  
+     маг. броня ${stats[3]}`;
+     move.style.backgroundColor = `${color}`
     ul.append(move);
    }
 function coolDownCounter(arr) {
